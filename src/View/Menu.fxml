@@ -7,24 +7,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="769.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="Controller.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MenuController">
    <children>
-      <ImageView fitHeight="515.0" fitWidth="782.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="515.0" fitWidth="782.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.25" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.39999999999997726" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@68a9ec2c467ac1323c66245f09b54b0e.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="idflight" layoutX="39.0" layoutY="36.0" mnemonicParsing="false" onAction="#FlightButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="FLIGHT" />
-      <Button fx:id="idbooking" layoutX="39.0" layoutY="116.0" mnemonicParsing="false" onAction="#BookingButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="BOOKING" />
-      <Button fx:id="idcustomers" layoutX="39.0" layoutY="196.0" mnemonicParsing="false" onAction="#CustomerButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="CUSTOMERS" />
-      <Button fx:id="idplane" layoutX="39.0" layoutY="260.0" mnemonicParsing="false" onAction="#PlaneButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="PLANE" />
-      <Button fx:id="idschedule" layoutX="39.0" layoutY="333.0" mnemonicParsing="false" onAction="#ScheduleButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="SCHEDULE" />
-      <Label layoutX="414.0" layoutY="5.0" prefHeight="61.0" prefWidth="367.0" text="FLY HIGH ,WITH CONFIDENCE" textFill="#faf5f5">
+      <Button fx:id="idflight" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#FlightButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="FLIGHT" AnchorPane.rightAnchor="613.6" />
+      <Button fx:id="idbooking" layoutX="11.0" layoutY="116.0" mnemonicParsing="false" onAction="#BookingButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="BOOKING" AnchorPane.rightAnchor="612.6" />
+      <Button fx:id="idcustomers" layoutX="39.0" layoutY="196.0" mnemonicParsing="false" onAction="#CustomerButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="CUSTOMERS" AnchorPane.rightAnchor="612.6" />
+      <Button fx:id="idplane" layoutX="39.0" layoutY="260.0" mnemonicParsing="false" onAction="#PlaneButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="PLANE" AnchorPane.rightAnchor="612.6" />
+      <Button fx:id="idschedule" layoutX="39.0" layoutY="333.0" mnemonicParsing="false" onAction="#ScheduleButton" prefHeight="26.0" prefWidth="158.0" style="-fx-background-color: #A9A9A9;" text="SCHEDULE" AnchorPane.rightAnchor="612.6" />
+      <Label layoutX="414.0" layoutY="5.0" prefHeight="61.0" prefWidth="367.0" text="FLY HIGH ,WITH CONFIDENCE" textFill="#faf5f5" AnchorPane.leftAnchor="414.0" AnchorPane.rightAnchor="0.4000000000000341">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="idexit" layoutX="67.0" layoutY="424.0" mnemonicParsing="false" onAction="#ExitButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: red;" text="EXIT" />
+      <Button fx:id="idexit" layoutX="32.0" layoutY="417.0" mnemonicParsing="false" onAction="#ExitButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: red;" text="EXIT" AnchorPane.bottomAnchor="46.950000000000045" AnchorPane.rightAnchor="647.6" />
    </children>
 </AnchorPane>

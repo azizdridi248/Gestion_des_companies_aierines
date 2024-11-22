@@ -8,31 +8,53 @@ package Model;
  * @author CLUB ACRICAIN
  */
 
-import java.util.EnumMap;
+
 import java.util.Date;
 
 public class Flight {
 
-    private int id;
-    private Date date;
-    private double capacity;
-    private String airlineName;
-    private float duration;
-    private String destination;
-    private EnumMap<Seat, Integer> seatsBooked; // Gestion des sièges réservés par classe
-    private FlightState state; // État du vol
-    private float promotion;
 
-    // Constructeur
-    public Flight() {
-        this.seatsBooked = new EnumMap<>(Seat.class);
-        for (Seat seatClass : Seat.values()) {
-            seatsBooked.put(seatClass, 0); // Initialiser avec 0 réservation
-        }
-        this.state = FlightState.SCHEDULED; // État par défaut
+    private int id;
+    private String name;
+    private String source;
+    private String destination;
+    private Date date;
+    private String ecoSeat;
+    private String businessSeat;
+    private String classSeat;
+    private FlightState state; // État du vol
+public Flight(int id, String name, String source, String destination, Date date, 
+              String ecoSeat, String businessSeat, String classSeat, FlightState state) {
+    this.id = id;
+    this.name = name;
+    this.source = source;
+    this.destination = destination;
+    this.date = date;
+    this.ecoSeat = ecoSeat;
+    this.businessSeat = businessSeat;
+    this.classSeat = classSeat;
+    this.state = state;
+}    // Constructor
+    
+    public Flight(int id, String name, String source, String destination) {
+        this.id = id;
+        this.name = name;
+        this.source = source;
+        this.destination = destination;
+    }
+    public Flight(int id, String name, String source, String destination, 
+                  String ecoSeat, String businessSeat, String classSeat, FlightState state) {
+        this.id = id;
+        this.name = name;
+        this.source = source;
+        this.destination = destination;
+        this.ecoSeat = ecoSeat;
+        this.businessSeat = businessSeat;
+        this.classSeat = classSeat;
+        this.state = state;
     }
 
-    // Getters et Setters
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -41,36 +63,20 @@ public class Flight {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getName() {
+        return name;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getCapacity() {
-        return capacity;
+    public String getSource() {
+        return source;
     }
 
-    public void setCapacity(double capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getAirlineName() {
-        return airlineName;
-    }
-
-    public void setAirlineName(String airlineName) {
-        this.airlineName = airlineName;
-    }
-
-    public float getDuration() {
-        return duration;
-    }
-
-    public void setDuration(float duration) {
-        this.duration = duration;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getDestination() {
@@ -81,6 +87,30 @@ public class Flight {
         this.destination = destination;
     }
 
+    public String getEcoSeat() {
+        return ecoSeat;
+    }
+
+    public void setEcoSeat(String ecoSeat) {
+        this.ecoSeat = ecoSeat;
+    }
+
+    public String getBusinessSeat() {
+        return businessSeat;
+    }
+
+    public void setBusinessSeat(String businessSeat) {
+        this.businessSeat = businessSeat;
+    }
+
+    public String getClassSeat() {
+        return classSeat;
+    }
+
+    public void setClassSeat(String classSeat) {
+        this.classSeat = classSeat;
+    }
+
     public FlightState getState() {
         return state;
     }
@@ -88,36 +118,13 @@ public class Flight {
     public void setState(FlightState state) {
         this.state = state;
     }
-
-    public float getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(float promotion) {
-        this.promotion = promotion;
-    }
-
-    // Gestion des réservations par classe
-    public int getSeatsBooked(Seat seatClass) {
-        return seatsBooked.getOrDefault(seatClass, 0);
-    }
-
-    public void incrementSeatsBooked(Seat seatClass) {
-        seatsBooked.put(seatClass, seatsBooked.get(seatClass) + 1);
-    }
-
-    public void decrementSeatsBooked(Seat seatClass) {
-        if (seatsBooked.get(seatClass) > 0) {
-            seatsBooked.put(seatClass, seatsBooked.get(seatClass) - 1);
-        }
-    }
-
-    // Afficher les réservations pour chaque classe
-    public void printSeatBookings() {
-        for (Seat seatClass : Seat.values()) {
-            System.out.println(seatClass + ": " + getSeatsBooked(seatClass) + " seats booked");
-        }
-    }
-}
-
     
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+}

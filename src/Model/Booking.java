@@ -8,91 +8,35 @@ package Model;
  *
  * @author CLUB ACRICAIN
  */
+
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Booking {
-    private int id;
-    private int idCustomer; // ID of the customer making the booking
-    private int idFlight; // ID of the flight being booked
-    private Seat seatClass; // Seat class for the booking
-    private float price; // Price of the booking
-    private Date date; // Booking date
+
+    // Static HashMap to store FlightBookings by Customer ID
+    public static HashMap<Integer, List<FlightBooking>> book = new HashMap<>();
+    
+    private int id;            // Booking ID
+    private Date date;         // Booking date
 
     // Constructor
-    public Booking(int id, int idCustomer, int idFlight, Seat seatClass, float price, Date date) {
+    public Booking(int id, Date date) {
         this.id = id;
-        this.idCustomer = idCustomer;
-        this.idFlight = idFlight;
-        this.seatClass = seatClass;
-        this.price = price;
         this.date = date;
     }
 
-    // Getters and Setters
-    public int getId() {
-        return id;
+    // Method to add a FlightBooking to a customer (using customer ID)
+    public static void addFlightBooking(int i, FlightBooking flightBooking) {
+        
+        book.computeIfAbsent(i, k -> new ArrayList<>()).add(flightBooking);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdCustomer() {
-        return idCustomer;
-    }
-
-    public void setIdCustomer(int idCustomer) {
-        this.idCustomer = idCustomer;
-    }
-
-    public int getIdFlight() {
-        return idFlight;
-    }
-
-    public void setIdFlight(int idFlight) {
-        this.idFlight = idFlight;
-    }
-
-    public Seat getSeatClass() {
-        return seatClass;
-    }
-
-    public void setSeatClass(Seat seatClass) {
-        this.seatClass = seatClass;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    // Methods
-    public void confirm() {
-        System.out.println("Booking confirmed! Booking ID: " + id);
-    }
-
-    public void cancel() {
-        System.out.println("Booking canceled! Booking ID: " + id);
-    }
-
-    // Print booking details
-    public void printDetails() {
-        System.out.println("Booking ID: " + id);
-        System.out.println("Customer ID: " + idCustomer);
-        System.out.println("Flight ID: " + idFlight);
-        System.out.println("Seat Class: " + seatClass);
-        System.out.println("Price: $" + price);
-        System.out.println("Booking Date: " + date);
+    
+    // Getter for the bookings map (if needed)
+    public static HashMap<Integer, List<FlightBooking>> getBookings() {
+        return book;
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="673.0" prefWidth="949.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="Controller.CustomerController">
+   <children>
+      <TableView layoutY="102.0" prefHeight="568.0" prefWidth="949.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="75.0" text="CIN" />
+            <TableColumn prefWidth="75.0" text="Nom" />
+            <TableColumn prefWidth="103.20002746582031" text="Telephone" />
+            <TableColumn prefWidth="97.5999755859375" text="Birthday" />
+            <TableColumn prefWidth="84.79998779296875" text="Email" />
+            <TableColumn prefWidth="196.79998779296875" text="PassportNumber" />
+            <TableColumn prefWidth="241.60003662109375" text="Address" />
+        </columns>
+      </TableView>
+      <Button fx:id="IdAdd" layoutX="41.0" layoutY="39.0" mnemonicParsing="false" onAction="#AddButton" text="Add" />
+      <Button fx:id="IdUpdate" layoutX="137.0" layoutY="39.0" mnemonicParsing="false" onAction="#UpdateButton" text="Update" />
+      <Button fx:id="IdDelete" layoutX="248.0" layoutY="39.0" mnemonicParsing="false" onAction="#DeleteButton" text="Delete" />
+      <Button fx:id="IdBack" layoutX="815.0" layoutY="39.0" mnemonicParsing="false" onAction="#BackButton" style="-fx-background-color: RED; -fx-background-radius: 10PX;" text="Back" />
+   </children>
+</AnchorPane>
