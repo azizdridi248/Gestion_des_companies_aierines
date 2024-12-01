@@ -14,7 +14,7 @@ public class Gestion_des_companies_aierenes extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Adjusted path to use an absolute resource path
-        Parent root = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/Schedule.fxml"));
 
         // Set up the scene and stage
         Scene scene = new Scene(root);
