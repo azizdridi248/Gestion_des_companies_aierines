@@ -8,19 +8,19 @@ package Model;
  *
  * @author CLUB ACRICAIN
  */
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Person {
     private int id;
     private String name;
     private String email;
     private String telephone;
-    private Date birthday;
+    private LocalDate birthday;
     private int cin;
     private String address;
 
     // Constructor
-    public Person(int id, String name, String email, String telephone, Date birthday, int cin, String address) {
+    public Person(int id, String name, String email, String telephone, LocalDate birthday, int cin, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -63,11 +63,11 @@ public class Person {
         this.telephone = telephone;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

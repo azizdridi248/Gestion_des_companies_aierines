@@ -1,11 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="689.0" prefWidth="928.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="Controller.BookingController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BookingController">
    <children>
-      <BorderPane prefHeight="689.0" prefWidth="928.0" />
+      <!-- Background Pane -->
+      <Pane layoutX="-30.0" layoutY="-66.0" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #dcdcdc; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;">
+         <children>
+            <!-- Header -->
+            <Label layoutX="20.0" layoutY="10.0" style="-fx-font-size: 28; -fx-font-family: 'Britannic Bold'; -fx-text-fill: #333;" text="Booking Management" />
+
+            <!-- TableView for Bookings -->
+            <TableView fx:id="table" layoutX="59.0" layoutY="84.0" prefHeight="535.0" prefWidth="577.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0.0, 2.0);">
+                <columns>
+                    <TableColumn fx:id="IdBooking" prefWidth="100.0" text="Id" />
+                    <TableColumn fx:id="date" prefWidth="200.0" text="Date" />
+                    <TableColumn fx:id="idcustomer" prefWidth="150.0" text="Customer ID" />
+                    <TableColumn fx:id="idflight" prefWidth="150.0" text="Flight ID" />
+                </columns>
+            </TableView>
+
+            <!-- Flight Details -->
+            <VBox layoutX="653.0" layoutY="84.0" prefHeight="200.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0.0, 2.0);">
+               <Label style="-fx-font-size: 20; -fx-font-family: 'Britannic Bold'; -fx-text-fill: #5F9EA0;" text="Flight Details" />
+               <VBox spacing="10">
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Flight ID:" />
+                     <Label fx:id="IDFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Name:" />
+                     <Label fx:id="NOMFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Source:" />
+                     <Label fx:id="SOURCEFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Destination:" />
+                     <Label fx:id="DESTINATIONFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Eco Seats:" />
+                     <Label fx:id="ECOSEATFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Class Seats:" />
+                     <Label fx:id="CLASSSEATFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                                    <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Class Seats:" />
+                     <Label fx:id="BUISSESSSEATFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="State:" />
+                     <Label fx:id="STATEFLIGHT" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+               </VBox>
+            </VBox>
+
+            <!-- Customer Details -->
+            <VBox layoutX="653.0" layoutY="410.0" prefHeight="250.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0.0, 2.0);">
+               <Label style="-fx-font-size: 20; -fx-font-family: 'Britannic Bold'; -fx-text-fill: #5F9EA0;" text="Customer Details" />
+               <VBox spacing="10">
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Customer ID:" />
+                     <Label fx:id="IDCUSTOMER" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Name:" />
+                     <Label fx:id="NOMCUSTOMER" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Email:" />
+                     <Label fx:id="EMAILCUSTOMER" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Phone:" />
+                     <Label fx:id="NTELEPHONE" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                                    <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Phone:" />
+                     <Label fx:id="BIRTHDAYCUSTOMER" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="CIN:" />
+                     <Label fx:id="CINCUSTOMER" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Address:" />
+                     <Label fx:id="ADRESSCUSTOMER" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+                                    <HBox spacing="10">
+                     <Label style="-fx-font-size: 14;" text="Passoprt" />
+                     <Label fx:id="PASSPORTCUSTOMER" style="-fx-font-size: 14;" text="N/A" />
+                  </HBox>
+               </VBox>
+            </VBox>
+
+            <!-- Buttons -->
+            <HBox layoutX="20.0" layoutY="660.0" spacing="20.0" />
+            <ImageView fx:id="idback" fitHeight="40.0" fitWidth="40.0" layoutX="308.0" layoutY="640.0" onMouseClicked="#back" preserveRatio="true">
+               <image>
+                  <Image url="@left-chevron.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="iddelete" fitHeight="40.0" fitWidth="40.0" layoutX="247.0" layoutY="640.0" onMouseClicked="#deletebooking" preserveRatio="true">
+               <image>
+                  <Image url="@cancel-booking.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="idupdate" fitHeight="40.0" fitWidth="40.0" layoutX="177.0" layoutY="640.0" onMouseClicked="#updatebooking" preserveRatio="true">
+               <image>
+                  <Image url="@refresh.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="idadd" fitHeight="40.0" fitWidth="40.0" layoutX="113.0" layoutY="640.0" onMouseClicked="#addbooking" preserveRatio="true">
+               <image>
+                  <Image url="@appointment.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="698.0" prefWidth="521.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerAddController">
+   <children>
+      <Pane layoutX="3.0" layoutY="85.0" prefHeight="8.0" prefWidth="515.0" style="-fx-background-color: black;" />
+      <Label layoutX="175.0" layoutY="21.0" prefHeight="38.0" prefWidth="279.0" text="Customer">
+         <font>
+            <Font name="Book Antiqua" size="31.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="81.0" fitWidth="116.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@people.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="105.0" layoutY="125.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="ID">
+         <font>
+            <Font name="Calisto MT" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="104.0" layoutY="177.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="NOM">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="104.0" layoutY="221.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="EMAIL">
+         <font>
+            <Font name="Cambria" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="309.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="BIRTHDAY" />
+      <Label layoutX="101.0" layoutY="360.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="CIN" />
+      <Label layoutX="104.0" layoutY="412.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="ADRESS" />
+      <Label layoutX="104.0" layoutY="465.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="N PASSPORT" />
+      <Label layoutX="103.0" layoutY="267.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #5F9EA0;" text="N TELEPHONE" />
+      <Pane layoutX="249.0" layoutY="119.0" prefHeight="382.0" prefWidth="12.0" style="-fx-background-color: black;" />
+      <Button fx:id="idadd" layoutX="194.0" layoutY="640.0" mnemonicParsing="false" onAction="#add" onMouseClicked="#add" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #5F9EA0;" text="ADD" />
+      <ImageView fx:id="IDBACK" fitHeight="64.0" fitWidth="110.0" layoutX="408.0" layoutY="625.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@left-chevron.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="idcustomer" layoutX="323.0" layoutY="128.0" promptText="ID" />
+      <TextField fx:id="nomcustomer" layoutX="323.0" layoutY="179.0" promptText="NOM" />
+      <TextField fx:id="emailcustomer" layoutX="323.0" layoutY="223.0" promptText="EMAIL" />
+      <TextField fx:id="telephonecustomer" layoutX="323.0" layoutY="269.0" promptText="N TELEPHONE" />
+      <TextField fx:id="cincustomer" layoutX="323.0" layoutY="362.0" promptText="CIN" />
+      <TextField fx:id="addresscustomer" layoutX="323.0" layoutY="414.0" promptText="ADDRESS" />
+      <TextField fx:id="passportcustomer" layoutX="323.0" layoutY="467.0" promptText="N PASSPORT" />
+      <DatePicker fx:id="iddata" layoutX="324.0" layoutY="312.0" prefHeight="26.0" prefWidth="150.0" />
+      
+      
+   </children>
+</AnchorPane>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="619.0" prefWidth="534.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="Controller.FlightaddController">
+   <children>
+      <Pane layoutY="84.0" prefHeight="7.0" prefWidth="534.0" style="-fx-background-color: black;" />
+      <Label layoutX="166.0" layoutY="37.0" prefHeight="46.0" prefWidth="258.0" text="ADD FLIGHT">
+         <font>
+            <Font name="Broadway" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="124.0" prefHeight="18.0" prefWidth="47.0" text="ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="168.0" text="NOM">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="212.0" text="SOURCE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="253.0" text="DESTINATION">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="299.0" text="DATE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="352.0" text="N°ECOSEAT">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="402.0" text="N°CLASS SEAT">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="450.0" prefHeight="22.0" prefWidth="190.0" text="N°BUISSNES SEAT">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="504.0" prefHeight="18.0" prefWidth="112.0" text="FLIGHTSTATE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="addBtn" layoutX="213.0" layoutY="548.0" mnemonicParsing="false" onAction="#addFlight" prefHeight="46.0" prefWidth="123.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-background-color: #DEB887;" text="ADD">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="back" fitHeight="62.0" fitWidth="68.0" layoutX="458.0" layoutY="540.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@left-chevron.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="idFld" layoutX="190.0" layoutY="124.0" prefHeight="26.0" prefWidth="268.0" promptText="ID" />
+      <TextField fx:id="nomFld" layoutX="190.0" layoutY="165.0" prefHeight="26.0" prefWidth="268.0" promptText="NOM" />
+      <TextField fx:id="sourceFld" layoutX="190.0" layoutY="209.0" prefHeight="26.0" prefWidth="268.0" promptText="SOURCE " />
+      <TextField fx:id="destinationFld" layoutX="190.0" layoutY="250.0" prefHeight="26.0" prefWidth="268.0" promptText="DESTINATION" />
+      <DatePicker fx:id="dateFld" layoutX="190.0" layoutY="296.0" prefHeight="26.0" prefWidth="268.0" />
+      <TextField fx:id="ecoFld" layoutX="190.0" layoutY="349.0" prefHeight="26.0" prefWidth="268.0" promptText="NUMBER OF SEAT ECO" />
+      <TextField fx:id="classFld" layoutX="190.0" layoutY="399.0" prefHeight="26.0" prefWidth="268.0" promptText="NUMBER OF SEAT CLASS" />
+      <TextField fx:id="buissnesFld" layoutX="190.0" layoutY="448.0" prefHeight="26.0" prefWidth="268.0" promptText="NUMBER OF SEAT BUISSNES" />
+      <TextField fx:id="stateFld" layoutX="190.0" layoutY="503.0" prefHeight="26.0" prefWidth="268.0" promptText="SCHEDULED,CONFIREMD,DELEYED" />
+      <ImageView fitHeight="68.0" fitWidth="104.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@airplane-mode.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

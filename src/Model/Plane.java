@@ -10,10 +10,39 @@ package Model;
  */
 public class Plane {
     private int id;
-    private int firstClassSeatNumber;
-    private int ecoClassSeatNumber;
-    private String type;
+        private String type;
     private float maxDistance;
+    private int firstClassSeatNumber;
+     private int buisnessSeatNumber;
+    private int ecoClassSeatNumber;
+    private PlaneEtat etat;
+
+    public PlaneEtat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(PlaneEtat etat) {
+        this.etat = etat;
+    }
+
+    public int getBuisnessSeatNumber() {
+        return buisnessSeatNumber;
+    }
+
+    public void setBuisnessSeatNumber(int buisnessSeatNumber) {
+        this.buisnessSeatNumber = buisnessSeatNumber;
+    }
+    public Plane(int id, String type, float maxDistance, int firstClassSeatNumber, 
+                 int businessSeatNumber, int ecoClassSeatNumber, PlaneEtat etat) {
+        this.id = id;
+        this.type = type;
+        this.maxDistance = maxDistance;
+        this.firstClassSeatNumber = firstClassSeatNumber;
+        this.buisnessSeatNumber = businessSeatNumber;
+        this.ecoClassSeatNumber = ecoClassSeatNumber;
+        this.etat = etat;
+    }
+
 
     public int getId() {
         return id;

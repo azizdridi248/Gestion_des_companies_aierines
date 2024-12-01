@@ -9,7 +9,7 @@ package Model;
  */
 
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Flight {
 
@@ -18,12 +18,12 @@ public class Flight {
     private String name;
     private String source;
     private String destination;
-    private Date date;
+    private LocalDate date;
     private String ecoSeat;
     private String businessSeat;
     private String classSeat;
     private FlightState state; // État du vol
-public Flight(int id, String name, String source, String destination, Date date, 
+public Flight(int id, String name, String source, String destination, LocalDate date, 
               String ecoSeat, String businessSeat, String classSeat, FlightState state) {
     this.id = id;
     this.name = name;
@@ -119,11 +119,11 @@ public Flight(int id, String name, String source, String destination, Date date,
         this.state = state;
     }
     
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -14,7 +14,16 @@ public class Schedule extends Flight {
 
     private LocalDateTime departureTime; // Departure date and time
     private LocalDateTime arrivalTime;   // Arrival date and time
-    private String terminal;            // Terminal information
+    private String terminal; 
+    private Crew crew;
+
+    public Crew getCrew() {
+        return crew;
+    }
+
+    public void setCrew(Crew crew) {
+        this.crew = crew;
+    }
 
     // Constructor
     public Schedule(int id, String name, String source, String destination, 
@@ -25,6 +34,13 @@ public class Schedule extends Flight {
         this.arrivalTime = arrivalTime;
         this.terminal = terminal;
     }
+
+    public Schedule(LocalDateTime departureTime, LocalDateTime arrivalTime, int id, String name, String source, String destination) {
+        super(id, name, source, destination);
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+    }
+    
 
     // Getters and Setters
     public LocalDateTime getDepartureTime() {
@@ -51,12 +67,40 @@ public class Schedule extends Flight {
         this.terminal = terminal;
     }
 
-    // Additional Method: Calculate flight duration
-    public long getFlightDurationInMinutes() {
-        if (departureTime != null && arrivalTime != null) {
-            return java.time.Duration.between(departureTime, arrivalTime).toMinutes();
-        } else {
-            return -1; // Return -1 if times are not set
+
+
+
+     public class Crew {
+        private String Pilote;
+        private String status;
+
+        public Crew(String crewMember) {
+            this.Pilote = crewMember;
         }
+
+        
+        public Crew(String crewMember, String status) {
+            this.Pilote = crewMember;
+            this.status = status;
+        }
+
+        // Getters and Setters
+        public String getPilote() {
+            return Pilote;
+        }
+
+        public void setPilote(String crewMember) {
+            this.Pilote = crewMember;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+ 
     }
 }

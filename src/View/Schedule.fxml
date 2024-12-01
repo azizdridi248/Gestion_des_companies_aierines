@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" style="-fx-background-color: #f4f6f9;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ScheduleController">
+   <children>
+      <!-- Header Section -->
+      <Label layoutX="20.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Flight Schedule Management" />
+      
+      <!-- Table Section -->
+      <TableView fx:id="table" style="-fx-background-color: white; -fx-border-color: #dcdde1; -fx-border-width: 1px; -fx-padding: 10;">
+         <columns>
+            <TableColumn fx:id="IDFLIGHT" text="Flight ID" />
+            <TableColumn fx:id="nomflight" text="Flight Name" />
+            <TableColumn fx:id="source" text="Source" />
+            <TableColumn fx:id="destination" text="Destination" />
+            <TableColumn fx:id="depturetime" text="Departure Time" />
+            <TableColumn fx:id="arrivaltime" text="Arrival Time" />
+            <TableColumn fx:id="terminal" text="Terminal" />
+            <TableColumn fx:id="pilote" text="Pilot" />
+         </columns>
+         <AnchorPane.topAnchor>60.0</AnchorPane.topAnchor>
+         <AnchorPane.leftAnchor>20.0</AnchorPane.leftAnchor>
+         <AnchorPane.rightAnchor>20.0</AnchorPane.rightAnchor>
+         <AnchorPane.bottomAnchor>250.0</AnchorPane.bottomAnchor>
+      </TableView>
+      
+      <!-- Input Form Section -->
+      <HBox spacing="50.0">
+         <AnchorPane.bottomAnchor>100.0</AnchorPane.bottomAnchor>
+         <AnchorPane.leftAnchor>20.0</AnchorPane.leftAnchor>
+         <VBox spacing="15.0">
+            <!-- Left Column -->
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Flight ID:" />
+               <TextField fx:id="idfield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Flight Name:" />
+               <TextField fx:id="nomfield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Source:" />
+               <TextField fx:id="sourcefield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Destination:" />
+               <TextField fx:id="destinationfield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+         </VBox>
+         <VBox spacing="15.0">
+            <!-- Right Column -->
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Departure Time:" />
+               <TextField fx:id="depturetimefield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Arrival Time:" />
+               <TextField fx:id="arrivaltimefield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Terminal:" />
+               <TextField fx:id="terminalfield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+            <HBox spacing="10.0">
+               <Label style="-fx-font-size: 14px; -fx-text-fill: #2c3e50;" text="Pilot:" />
+               <TextField fx:id="pilotefield" style="-fx-background-color: #ecf0f1;" />
+            </HBox>
+         </VBox>
+      </HBox>
+      
+      <!-- Action Buttons -->
+      <HBox alignment="CENTER" spacing="20.0">
+         <AnchorPane.bottomAnchor>20.0</AnchorPane.bottomAnchor>
+         <AnchorPane.rightAnchor>20.0</AnchorPane.rightAnchor>
+         <Button fx:id="idupdate" onAction="#update" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8;" text="Update" />
+         <ImageView fx:id="idback" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#back" preserveRatio="true">
+            <image>
+               <Image url="@left-chevron.png" />
+            </image></ImageView>
+      </HBox>
+   </children>
+</AnchorPane>

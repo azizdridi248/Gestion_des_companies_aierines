@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TicketController">
+    <top>
+        <Label text="Ticket Details" style="-fx-font-size: 18px; -fx-font-weight: bold;" alignment="CENTER" BorderPane.alignment="CENTER" />
+    </top>
+
+    <center>
+        <VBox spacing="15.0" alignment="CENTER" padding="20.0">
+            <Label text="Ticket ID: 12345"/>
+            <Label text="Type: Flight"/>
+            <Label text="Description: Standard Flight"/>
+            <Label text="Priority: High"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="15.0" alignment="CENTER" padding="10.0">
+            <Button text="Close" onAction="#onCloseClicked"/>
+        </HBox>
+    </bottom>
+</BorderPane>

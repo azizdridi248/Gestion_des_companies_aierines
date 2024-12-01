@@ -4,19 +4,19 @@
  */
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author CLUB ACRICAIN
  * 
  */
-class Admin extends Person {
+public class Admin extends Person {
     private String username;
     private String password;
 
     // Constructor
-    public Admin(int id, String name, String email, String telephone, Date birthday, int cin, String address, String username, String password) {
+    public Admin(int id, String name, String email, String telephone, LocalDate birthday, int cin, String address, String username, String password) {
         super(id, name, email, telephone, birthday, cin, address);
         this.username = username;
         this.password = password;

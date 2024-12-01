@@ -55,15 +55,33 @@ public class MenuController implements Initializable {
     }
 
     @FXML
-    private void BookingButton(ActionEvent event) {
+    private void BookingButton(ActionEvent event) throws IOException {
+                Parent root = FXMLLoader.load(getClass().getResource("/View/Booking.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
     }
 
     @FXML
-    private void CustomerButton(ActionEvent event) {
+    private void CustomerButton(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/View/Customer.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+        
     }
 
     @FXML
-    private void PlaneButton(ActionEvent event) {
+    private void PlaneButton(ActionEvent event) throws IOException {
+         Parent root = FXMLLoader.load(getClass().getResource("/View/Plane.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -71,7 +89,14 @@ public class MenuController implements Initializable {
     }
 
     @FXML
-    private void ExitButton(ActionEvent event) {
+    private void ExitButton(ActionEvent event) throws IOException {
+        
+                 Parent root = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
     }
     
 }

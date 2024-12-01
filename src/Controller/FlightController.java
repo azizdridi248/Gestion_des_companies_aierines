@@ -6,14 +6,21 @@ package Controller;
 
 import Model.Flight;
 import Model.FlightState;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -40,7 +48,7 @@ public class FlightController implements Initializable {
     @FXML
     private TableColumn<Flight, String> DESTINATION;
     @FXML
-    private TableColumn<Flight, Date> DATE;
+    private TableColumn<Flight, LocalDate> DATE;
     @FXML
     private TableColumn<Flight, String> ECOSEAT;
     @FXML
@@ -52,18 +60,28 @@ public class FlightController implements Initializable {
     @FXML
     private TextField labelsearch;
     @FXML
-    private ImageView Buttonsearch;
+    private Button Buttonsearch;
     @FXML
-    private ImageView idadd;
+    private Button idadd;
     @FXML
-    private ImageView idupdate;
+    private Button idupdate;
     @FXML
-    private ImageView iddelete;
+    private Button iddelete;
     @FXML
-    private ImageView idback;
+    private Button idback;
 
     // Observable list for table data
-    private ObservableList<Flight> flightList = FXCollections.observableArrayList();
+    public static ObservableList<Flight> flightList = FXCollections.observableArrayList(new Flight(
+        1, 
+        "Flight A", 
+        "New York", 
+        "Los Angeles", 
+        LocalDate.of(1990, 5, 19), 
+        "50", 
+        "20", 
+        "30", 
+        FlightState.SCHEDULED),new Flight(2, "Flight B", "Paris", "London",
+                LocalDate.of(1990, 5, 19), "40", "15", "25", FlightState.DELAYED));
 
     /**
      * Initializes the controller class.
@@ -80,70 +98,50 @@ public class FlightController implements Initializable {
         CLASSSEAT.setCellValueFactory(new PropertyValueFactory<>("classSeat"));
         BUISSNESSCLASS.setCellValueFactory(new PropertyValueFactory<>("businessSeat"));
         STATE.setCellValueFactory(new PropertyValueFactory<>("state"));
-
-        // Custom cell factory for the DATE column to format the date
-        DATE.setCellFactory(column -> new TableCell<Flight, Date>() {
-            private final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
-            @Override
-            protected void updateItem(Date item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(format.format(item));
-                }
-            }
-        });
-
-        // Load initial data into the table
-        loadFlights();
-    }
-
-    /**
-     * Load flight data into the TableView.
-     */
-    private void loadFlights() {
-        // Add mock data or fetch from database
-        flightList.add(new Flight(1, "Flight A", "New York", "Los Angeles",
-                new Date(), "50", "20", "30", FlightState.SCHEDULED));
-        flightList.add(new Flight(2, "Flight B", "Paris", "London",
-                new Date(), "40", "15", "25", FlightState.DELAYED));
-
         TABLE.setItems(flightList);
+
+    }
+
+
+
+    @FXML
+    private void search(ActionEvent event) {
+                    String searchText = labelsearch.getText().toLowerCase();
+
+    if (searchText == null || searchText.isEmpty()) {
+        TABLE.setItems(flightList); // Reset to full list if search is empty
+        return;
+    }
+
+    ObservableList<Flight> filteredList = FXCollections.observableArrayList(
+        flightList.stream()
+            .filter(flight -> flight.getName().toLowerCase().contains(searchText) ||
+                              flight.getSource().toLowerCase().contains(searchText) ||
+                              flight.getDestination().toLowerCase().contains(searchText))
+            .toList()
+    );
+
+    TABLE.setItems(filteredList);
     }
 
     @FXML
-    private void search(MouseEvent event) {
-        String searchText = labelsearch.getText().toLowerCase();
-        if (searchText.isEmpty()) {
-            TABLE.setItems(flightList); // Reset to full list if search is empty
-            return;
-        }
-
-        ObservableList<Flight> filteredList = FXCollections.observableArrayList();
-        for (Flight flight : flightList) {
-            if (flight.getName().toLowerCase().contains(searchText) ||
-                    flight.getSource().toLowerCase().contains(searchText) ||
-                    flight.getDestination().toLowerCase().contains(searchText)) {
-                filteredList.add(flight);
-            }
-        }
-        TABLE.setItems(filteredList);
+    private void ADD(ActionEvent event) throws IOException {
+        
+                 Parent root = FXMLLoader.load(getClass().getResource("/View/Flightadd.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void add(MouseEvent event) {
-        // Logic to add a new flight
-        Flight newFlight = new Flight(flightList.size() + 1, "New Flight", "Source", "Destination",
-                new Date(), "50", "20", "30", FlightState.SCHEDULED);
-        flightList.add(newFlight);
-        TABLE.refresh();
+    private void update(ActionEvent event) {
+
     }
 
     @FXML
-    private void delete(MouseEvent event) {
-        // Get selected flight
+    private void delete(ActionEvent event) {
+              // Get selected flight
         Flight selectedFlight = TABLE.getSelectionModel().getSelectedItem();
         if (selectedFlight != null) {
             flightList.remove(selectedFlight);
@@ -152,8 +150,16 @@ public class FlightController implements Initializable {
     }
 
     @FXML
-    private void back(MouseEvent event) {
+    private void back(ActionEvent event) throws IOException {
+        
         // Logic to go back or navigate to a different scene
-        System.out.println("Back button clicked");
+         Parent root = FXMLLoader.load(getClass().getResource("/View/Menu.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
+
+
+
 }

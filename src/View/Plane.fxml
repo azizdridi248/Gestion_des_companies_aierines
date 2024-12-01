@@ -1,29 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="646.0" prefWidth="938.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="Controller.PlaneController">
+<AnchorPane id="AnchorPane" prefHeight="669.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PlaneController">
    <children>
-      <TableView layoutY="111.0" prefHeight="530.0" prefWidth="938.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="75.0" text="Nom" />
-            <TableColumn prefWidth="100.79998779296875" text="Distance" />
-            <TableColumn prefWidth="186.40003967285156" text="EcoClassSeat" />
-            <TableColumn prefWidth="234.4000244140625" text="BuisnessClass" />
-            <TableColumn prefWidth="267.20001220703125" text="FirstClass" />
-        </columns>
+      <!-- Header -->
+      <Label text="Plane Management" layoutX="20.0" layoutY="10.0" style="-fx-font-size: 24px; -fx-font-family: 'Arial Bold'; -fx-text-fill: #34495e;" />
+
+      <!-- Control Panel -->
+      <AnchorPane layoutY="50.0" prefHeight="70.0" prefWidth="1021.0" style="-fx-background-color: #f4f4f9; -fx-border-color: #bdc3c7; -fx-border-width: 0 0 1 0;">
+         <children>
+            <!-- Add Button -->
+            <Button fx:id="addBtn" layoutX="20.0" layoutY="10.0" prefWidth="100.0" text="Add" onAction="#add"
+               style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8;">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" preserveRatio="true">
+                     <image>
+                        <Image url="@add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+
+            <!-- Update Button -->
+            <Button fx:id="updateBtn" layoutX="140.0" layoutY="10.0" prefWidth="100.0" text="Update" onAction="#update"
+               style="-fx-background-color: #f1c40f; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8;">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" preserveRatio="true">
+                     <image>
+                        <Image url="@aviation.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+
+            <!-- Delete Button -->
+            <Button fx:id="deleteBtn" layoutX="260.0" layoutY="10.0" prefWidth="100.0" text="Delete" onAction="#delete"
+               style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8;">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" preserveRatio="true">
+                     <image>
+                        <Image url="@no-flight.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+
+            <!-- Search Field -->
+            <TextField fx:id="searchFld" layoutX="400.0" layoutY="12.0" prefHeight="30.0" prefWidth="400.0" promptText="Search by ID or Name"
+               style="-fx-border-color: #2980b9; -fx-border-radius: 8; -fx-font-size: 14px; -fx-padding: 5;" />
+            
+            <!-- Search Button -->
+            <Button fx:id="searchBtn" layoutX="820.0" layoutY="12.0" prefWidth="80.0" text="Search" onAction="#search"
+               style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8;" />
+         </children>
+      </AnchorPane>
+
+      <!-- Table Section -->
+      <TableView fx:id="table" layoutY="130.0" prefHeight="500.0" prefWidth="1021.0" style="-fx-border-color: #34495e; -fx-border-radius: 8; -fx-background-radius: 8;">
+         <columns>
+            <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="nom" prefWidth="150.0" text="Nom" />
+            <TableColumn fx:id="distance" prefWidth="100.0" text="Distance" />
+            <TableColumn fx:id="Ecoseat" prefWidth="160.0" text="EcoClassSeat" />
+            <TableColumn fx:id="buisnessseat" prefWidth="175.0" text="BusinessClassSeat" />
+            <TableColumn fx:id="firstclassseat" prefWidth="190.0" text="FirstClassSeat" />
+            <TableColumn fx:id="etat" prefWidth="180.0" text="Etat" />
+         </columns>
       </TableView>
-      <Button fx:id="idUpdate" layoutX="30.0" layoutY="46.0" mnemonicParsing="false" onAction="#UpdateButton" text="Update" />
-      <Separator layoutX="117.0" layoutY="3.0" orientation="VERTICAL" prefHeight="98.0" prefWidth="19.0" />
-      <Button fx:id="idDelete" layoutX="162.0" layoutY="46.0" mnemonicParsing="false" onAction="#DeleteButton" text="Delete" />
-      <Separator layoutX="247.0" layoutY="3.0" orientation="VERTICAL" prefHeight="98.0" prefWidth="19.0" />
-      <Button fx:id="idAdd" layoutX="285.0" layoutY="46.0" mnemonicParsing="false" onAction="#AddButton" text="Add" />
-      <Button fx:id="idExit" layoutX="819.0" layoutY="46.0" mnemonicParsing="false" onAction="#ExitButton" style="-fx-background-color: red;" text="EXIT" />
    </children>
 </AnchorPane>
