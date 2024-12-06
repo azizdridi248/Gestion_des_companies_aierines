@@ -15,6 +15,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -85,10 +86,10 @@ public class ScheduleController implements Initializable {
         terminal.setCellValueFactory(cellData -> 
             new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTerminal()));
 
-        pilote.setCellValueFactory(cellData -> {
-            Schedule.Crew crew = cellData.getValue().new Crew("Default Pilot");
-            return new javafx.beans.property.SimpleStringProperty(crew.getPilote());
-        });
+pilote.setCellValueFactory(cellData -> {
+    Schedule.Crew crew = cellData.getValue().getCrew();
+    return crew != null ? crew.piloteProperty() : new SimpleStringProperty("No Pilot");
+});
 
         loadExampleData();
         table.setItems(scheduleList);
@@ -157,7 +158,7 @@ private void update(ActionEvent event) {
             selected.getCrew().setPilote(pilote);
         }
 
-        // Refresh the table
+        // Refresh the table to reflect changes
         table.refresh();
     } catch (Exception e) {
         showAlert("Error", "An unexpected error occurred. Please check your inputs.", Alert.AlertType.ERROR);

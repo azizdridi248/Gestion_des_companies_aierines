@@ -4,11 +4,12 @@
  */
 package Model;
 
+
 /**
  *
  * @author CLUB ACRICAIN
  */
-public record FlightBooking(Flight f,Customer customer, Seat seat, float price) {
+public record FlightBooking(Flight f,Customer customer, Seat seat) {
 
     public Customer getCustomer() {
         return customer;
@@ -18,8 +19,9 @@ public record FlightBooking(Flight f,Customer customer, Seat seat, float price) 
         return seat;
     }
 
-    public float getPrice() {
-        return price;
+    public Flight getF() {
+        return f;
     }
+
 }
 

@@ -1,10 +1,13 @@
 package Controller;
 
+import Model.Booking;
 import Model.Customer;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,6 +70,8 @@ public class CustomerController implements Initializable {
     );
     @FXML
     private ImageView idback;
+    @FXML
+    private TableColumn<Customer, Void> actionCol;
  
 
     @Override
@@ -81,9 +86,10 @@ public class CustomerController implements Initializable {
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
         idpassport.setCellValueFactory(new PropertyValueFactory<>("passportNumber"));
+        addButtonToTable();
 
 
-        // Bind data to TableView
+        
         table.setItems(customerList);
         }catch (NullPointerException e) {
         System.err.println("A component is null. Check your FXML file: " + e.getMessage());
@@ -164,5 +170,68 @@ public class CustomerController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    private void addButtonToTable() {
+    actionCol.setCellFactory(column -> new javafx.scene.control.TableCell<>() {
+        private Button button = new Button("Send Email");
+
+   {
+            button.setOnAction(event -> {
+                Customer selected = getTableView().getItems().get(getIndex());
+                if (selected != null) {
+                    // Create an anonymous subclass of Booking
+                    Customer customBooking = new Customer(
+                        selected.getId(),
+                        selected.getName(),
+                        selected.getEmail(),
+                        selected.getTelephone(),
+                        selected.getBirthday(),
+                        selected.getCin(),
+                            selected.getAddress(),
+                            selected.getPassportNumber()
+                            
+                    ) {
+                        @Override
+                        public void message() {
+                            try {
+                                // Navigate to the Web.fxml scene
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Web.fxml"));
+                                Parent root = loader.load();
+
+                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                Scene scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
+
+                                System.out.println("Button clicked. Booking details printed.");
+                            } catch (IOException ex) {
+                                Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    };
+
+                    // Call the overridden imprimer method
+                    customBooking.message();
+                } else {
+                    System.out.println("No booking selected.");
+                }
+            });
+        }
+
+        @Override
+        protected void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setGraphic(null);
+            } else {
+                setGraphic(button);
+            }
+        }
+    });
+
+    // Add the action column to the TableView if not already added
+    if (!table.getColumns().contains(actionCol)) {
+        table.getColumns().add(actionCol);
+    }
     }
 }

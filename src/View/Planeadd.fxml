@@ -32,22 +32,12 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="37.0" layoutY="268.0" text="N°ECOSEAT">
+      <Label layoutX="33.0" layoutY="263.0" prefHeight="22.0" prefWidth="190.0" text="Nb Seat">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="320.0" text="N°CLASS SEAT">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="42.0" layoutY="377.0" prefHeight="22.0" prefWidth="190.0" text="N°BUISSNES SEAT">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="43.0" layoutY="433.0" prefHeight="18.0" prefWidth="112.0" text="PLANE ETAT">
+      <Label layoutX="33.0" layoutY="316.0" prefHeight="18.0" prefWidth="112.0" text="PLANE ETAT">
          <font>
             <Font size="16.0" />
          </font>
@@ -65,10 +55,8 @@
       <TextField fx:id="idFld" layoutX="190.0" layoutY="124.0" prefHeight="26.0" prefWidth="268.0" promptText="ID" />
       <TextField fx:id="nomFld" layoutX="190.0" layoutY="165.0" prefHeight="26.0" prefWidth="268.0" promptText="NOM" />
       <TextField fx:id="distanceFld" layoutX="190.0" layoutY="209.0" prefHeight="26.0" prefWidth="268.0" promptText="Distance" />
-      <TextField fx:id="ecoFld" layoutX="190.0" layoutY="265.0" prefHeight="26.0" prefWidth="268.0" promptText="NUMBER OF SEAT ECO" />
-      <TextField fx:id="classFld" layoutX="190.0" layoutY="318.0" prefHeight="26.0" prefWidth="268.0" promptText="NUMBER OF SEAT CLASS" />
-      <TextField fx:id="buissnesFld" layoutX="190.0" layoutY="375.0" prefHeight="26.0" prefWidth="268.0" promptText="NUMBER OF SEAT BUISSNES" />
-      <TextField fx:id="etatFld" layoutX="190.0" layoutY="433.0" prefHeight="26.0" prefWidth="268.0" promptText="MAINTENANCE,PARKED,ENVOL" />
+      <TextField fx:id="SeatFld" layoutX="190.0" layoutY="261.0" prefHeight="26.0" prefWidth="268.0" promptText="NUMBER OF SEAT " />
+      <TextField fx:id="etatFld" layoutX="190.0" layoutY="315.0" prefHeight="26.0" prefWidth="268.0" promptText="MAINTENANCE,PARKED,ENVOL" />
       <ImageView fitHeight="68.0" fitWidth="104.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@airplane-mode.png" />

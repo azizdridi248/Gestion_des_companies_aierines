@@ -9,6 +9,8 @@ package Model;
  * @author CLUB ACRICAIN
  */
 import java.time.LocalDateTime; // To handle date and time
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Schedule extends Flight {
 
@@ -17,13 +19,7 @@ public class Schedule extends Flight {
     private String terminal; 
     private Crew crew;
 
-    public Crew getCrew() {
-        return crew;
-    }
 
-    public void setCrew(Crew crew) {
-        this.crew = crew;
-    }
 
     // Constructor
     public Schedule(int id, String name, String source, String destination, 
@@ -70,37 +66,32 @@ public class Schedule extends Flight {
 
 
 
-     public class Crew {
-        private String Pilote;
-        private String status;
+ public class Crew {
+        private final StringProperty pilote;
 
-        public Crew(String crewMember) {
-            this.Pilote = crewMember;
+        public Crew(String pilote) {
+            this.pilote = new SimpleStringProperty(pilote);
         }
 
-        
-        public Crew(String crewMember, String status) {
-            this.Pilote = crewMember;
-            this.status = status;
-        }
-
-        // Getters and Setters
         public String getPilote() {
-            return Pilote;
+            return pilote.get();
         }
 
-        public void setPilote(String crewMember) {
-            this.Pilote = crewMember;
+        public void setPilote(String pilote) {
+            this.pilote.set(pilote);
         }
 
-        public String getStatus() {
-            return status;
+        public StringProperty piloteProperty() {
+            return pilote;
         }
+    }
 
-        public void setStatus(String status) {
-            this.status = status;
-        }
+    public Crew getCrew() {
+        return crew;
+    }
 
- 
+    public void setCrew(Crew crew) {
+        this.crew = crew;
     }
 }
+

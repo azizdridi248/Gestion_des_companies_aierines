@@ -38,16 +38,13 @@ public class PlaneaddController implements Initializable {
     private TextField idFld;
     @FXML
     private TextField nomFld;
-    @FXML
-    private TextField ecoFld;
-    @FXML
-    private TextField classFld;
-    @FXML
-    private TextField buissnesFld;
+
     @FXML
     private TextField etatFld;
     @FXML
     private TextField distanceFld;
+    @FXML
+    private TextField SeatFld;
 
     /**
      * Initializes the controller class.
@@ -73,7 +70,7 @@ public class PlaneaddController implements Initializable {
     private void addPlane(ActionEvent event) {
         // Vérification que tous les champs sont remplis
         if (idFld.getText().isEmpty() || nomFld.getText().isEmpty() || distanceFld.getText().isEmpty() ||
-            ecoFld.getText().isEmpty() || classFld.getText().isEmpty() || buissnesFld.getText().isEmpty() ||
+            SeatFld.getText().isEmpty()  ||
             etatFld.getText().isEmpty()) {
             showError("Tous les champs doivent être remplis.");
             return;
@@ -84,13 +81,11 @@ public class PlaneaddController implements Initializable {
             int id = Integer.parseInt(idFld.getText());
             String type = nomFld.getText();
             float distance = Float.parseFloat(distanceFld.getText());
-            int ecoSeats = Integer.parseInt(ecoFld.getText());
-            int businessSeats = Integer.parseInt(buissnesFld.getText());
-            int firstClassSeats = Integer.parseInt(classFld.getText());
+            int firstClassSeats = Integer.parseInt(SeatFld.getText());
             PlaneEtat etat = PlaneEtat.valueOf(etatFld.getText().toUpperCase());
 
             // Créer et ajouter l'avion à la liste
-            Plane newPlane = new Plane(id, type, distance, firstClassSeats, businessSeats, ecoSeats, etat);
+            Plane newPlane = new Plane(id, type, distance, firstClassSeats, etat);
             PlaneController.planeList.add(newPlane);
 
             // Nettoyer les champs après ajout
@@ -127,9 +122,7 @@ public class PlaneaddController implements Initializable {
         idFld.clear();
         nomFld.clear();
         distanceFld.clear();
-        ecoFld.clear();
-        classFld.clear();
-        buissnesFld.clear();
+        SeatFld.clear();
         etatFld.clear();
     }
 }

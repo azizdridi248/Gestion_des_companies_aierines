@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 
-<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TicketController">
-    <top>
-        <Label text="Ticket Details" style="-fx-font-size: 18px; -fx-font-weight: bold;" alignment="CENTER" BorderPane.alignment="CENTER" />
-    </top>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TicketController">
+   <children>
+      <!-- Background Pane with subtle gradient -->
+      <Pane layoutX="0.0" layoutY="0.0" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #5F9EA0, #A9A9A9);">
+         
+         <!-- Title -->
+         <Label layoutX="310.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="AIRLINE TICKET" />
 
-    <center>
-        <VBox spacing="15.0" alignment="CENTER" padding="20.0">
-            <Label text="Ticket ID: 12345"/>
-            <Label text="Type: Flight"/>
-            <Label text="Description: Standard Flight"/>
-            <Label text="Priority: High"/>
-        </VBox>
-    </center>
+         <!-- Separator Line -->
+         <Line endX="780.0" layoutX="10.0" layoutY="60.0" startX="20.0" stroke="#FFFFFF" strokeWidth="1.5" />
 
-    <bottom>
-        <HBox spacing="15.0" alignment="CENTER" padding="10.0">
-            <Button text="Close" onAction="#onCloseClicked"/>
-        </HBox>
-    </bottom>
-</BorderPane>
+         <!-- Customer Details Section -->
+         <Label layoutX="30.0" layoutY="80.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Customer ID:" />
+         <Label fx:id="CustomerID" layoutX="150.0" layoutY="80.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+         
+         <Label layoutX="30.0" layoutY="110.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Customer Name:" />
+         <Label fx:id="nomcustomer" layoutX="150.0" layoutY="110.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+         
+         <Label layoutX="30.0" layoutY="140.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Passport No:" />
+         <Label fx:id="passportID" layoutX="150.0" layoutY="140.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+
+         <!-- Flight Details Section -->
+         <Label layoutX="30.0" layoutY="200.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Booking ID:" />
+         <Label fx:id="BookingID" layoutX="150.0" layoutY="200.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+         
+         <Label layoutX="30.0" layoutY="230.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Seat:" />
+         <Label fx:id="SeatID" layoutX="150.0" layoutY="230.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+         
+         <Label layoutX="30.0" layoutY="260.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Type of Seat:" />
+         <Label fx:id="typeseat" layoutX="150.0" layoutY="260.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+
+         <Label layoutX="300.0" layoutY="200.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Flight No:" />
+         <Label fx:id="FlightID" layoutX="400.0" layoutY="200.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+
+         <!-- Journey Details -->
+         <Label layoutX="30.0" layoutY="320.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="From:" />
+         <Label fx:id="Source" layoutX="150.0" layoutY="320.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+         
+         <Label layoutX="30.0" layoutY="350.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="To:" />
+         <Label fx:id="destination" layoutX="150.0" layoutY="350.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+         
+         <Label layoutX="300.0" layoutY="320.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Date:" />
+         <Label fx:id="Dateid" layoutX="400.0" layoutY="320.0" style="-fx-font-size: 14px; -fx-text-fill: #fff;" text="Label" />
+
+         <!-- Footer -->
+         <Label layoutX="30.0" layoutY="450.0" style="-fx-font-size: 12px; -fx-text-fill: #f5f5f5; -fx-font-style: italic;" text="Thank you for choosing our airline!" />
+         
+         <!-- Airline Logo -->
+         <ImageView fitHeight="71.0" fitWidth="79.0" layoutX="680.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Capture%20d'écran%202024-12-06%20131528.png" />
+            </image>
+         </ImageView>
+         
+         <!-- QR Code -->
+         <ImageView fx:id="codeqr" fitHeight="50.0" fitWidth="50.0" layoutX="47.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@airplane-mode.png" />
+            </image>
+         </ImageView>
+         <Button fx:id="idback" layoutX="765.0" layoutY="8.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="21.0" style="-fx-background-color: #F0F8FF;" text="X" />
+      </Pane>
+   </children>
+</AnchorPane>

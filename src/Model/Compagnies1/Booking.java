@@ -18,21 +18,43 @@ import java.util.List;
 
 public class Booking {
 
-    // Static HashMap to store FlightBookings by Flight ID
+
 
 
     private int idbooking;          // Booking ID
     private LocalDate date;
     private int customerId;
     private int flightId;
+    private String Seat;
+    private Seat typeSeat;
     public static HashMap<Integer, List<FlightBooking>> bookings = new HashMap<>();
-    
-    public Booking(int idbooking, LocalDate date, int customerId, int flightId) {
+
+    public Booking(int idbooking, LocalDate date, int customerId, int flightId, String Seat, Seat typeSeat) {
         this.idbooking = idbooking;
         this.date = date;
         this.customerId = customerId;
         this.flightId = flightId;
+        this.Seat = Seat;
+        this.typeSeat = typeSeat;
     }
+
+    public String getSeat() {
+        return Seat;
+    }
+
+    public void setSeat(String Seat) {
+        this.Seat = Seat;
+    }
+
+    public Seat getTypeSeat() {
+        return typeSeat;
+    }
+
+    public void setTypeSeat(Seat typeSeat) {
+        this.typeSeat = typeSeat;
+    }
+    
+
     
     
     
@@ -94,4 +116,15 @@ public class Booking {
     public static List<FlightBooking> getFlightBookings(int flightId) {
         return bookings.getOrDefault(flightId, new ArrayList<>());
     }
+public void imprimer() {
+    System.out.println("----- Booking Details -----");
+    System.out.println("Booking ID: " + idbooking);
+    System.out.println("Date: " + date);
+    System.out.println("Customer ID: " + customerId);
+    System.out.println("Flight ID: " + flightId);
+    System.out.println("Seat: " + Seat);
+    System.out.println("Type of Seat: " + (typeSeat != null ? typeSeat.toString() : "Not Specified"));
+    System.out.println("---------------------------");
+}
+
 }

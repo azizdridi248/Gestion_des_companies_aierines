@@ -5,6 +5,7 @@ import static Controller.FlightController.flightList;
 import Model.Booking;
 import Model.Customer;
 import Model.Flight;
+import Model.Seat;
 import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,10 +22,14 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class BookingController implements Initializable {
@@ -39,12 +44,20 @@ public class BookingController implements Initializable {
     private TableColumn<Booking, Integer> idflight;
     @FXML
     private TableColumn<Booking, LocalDate> date;
+        @FXML
+    private TableColumn<Booking, String> seat;
+    @FXML
+    private TableColumn<Booking, Seat> typeseat;
 
     // Flight details labels
     @FXML
     private Label IDFLIGHT, NOMFLIGHT, SOURCEFLIGHT, DESTINATIONFLIGHT;
     @FXML
-    private Label ECOSEATFLIGHT, CLASSSEATFLIGHT, BUISSESSSEATFLIGHT, STATEFLIGHT;
+    private Label ECOSEATFLIGHT;
+    @FXML
+    private Label CLASSSEATFLIGHT;
+    @FXML
+    private Label BUISSESSSEATFLIGHT, STATEFLIGHT;
 
     // Customer details labels
     @FXML
@@ -53,11 +66,20 @@ public class BookingController implements Initializable {
     private Label CINCUSTOMER, ADRESSCUSTOMER, PASSPORTCUSTOMER, BIRTHDAYCUSTOMER;
 
     // Observable list for bookings
-    public static ObservableList<Booking> bookings;
+    public static ObservableList<Booking> bookings=FXCollections.observableArrayList(new Booking(1, LocalDate.of(2024, 5, 15), 1, 1,"15F",Seat.FIRST_CLASS));
     
     // ImageView buttons for add, update, delete, and back
     @FXML
-    private ImageView idadd, idupdate, iddelete, idback;
+    private Button btnAdd;
+    // ImageView buttons for add, update, delete, and back
+    @FXML
+    private Button btnDelete;
+    // ImageView buttons for add, update, delete, and back
+    @FXML
+    private Button btnBack;
+    @FXML
+    private TableColumn<Booking, Void> ticket;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,11 +88,12 @@ public class BookingController implements Initializable {
         idcustomer.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         idflight.setCellValueFactory(new PropertyValueFactory<>("flightId"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        seat.setCellValueFactory(new PropertyValueFactory<>("seat"));
+        typeseat.setCellValueFactory(new PropertyValueFactory<>("TypeSeat"));
+        addButtonToTable();
 
-        // Load bookings into the TableView
-        loadBookings();
-        
-        // Reset customer and flight details initially
+
+          table.setItems(bookings);
         resetFlightDetails();
         resetCustomerDetails();
 
@@ -82,13 +105,6 @@ public class BookingController implements Initializable {
         });
     }
 
-    private void loadBookings() {
-        // Sample data for bookings (replace with actual data)
-        bookings = FXCollections.observableArrayList(
-            new Booking(1, LocalDate.of(2024, 5, 15), 1, 1) // Example booking
-        );
-        table.setItems(bookings);
-    }
 
     private void updateDetailsForSelectedBooking(Booking booking) {
         // Get customer and flight details based on the booking selected
@@ -165,71 +181,109 @@ public class BookingController implements Initializable {
         alert.show();
     }
 
-    @FXML
-    private void addbooking(MouseEvent event) {
-        try {
-            int newBookingId = bookings.size() + 1; // New Booking ID
-            int customerId = Integer.parseInt(IDCUSTOMER.getText().trim());
-            int flightId = Integer.parseInt(IDFLIGHT.getText().trim());
-            LocalDate bookingDate = LocalDate.now(); // Or retrieve from a date picker
-
-            // Validate customer and flight existence
-            Customer customer = customerList.stream()
-                    .filter(c -> c.getId() == customerId)
-                    .findFirst().orElse(null);
-            Flight flight = flightList.stream()
-                    .filter(f -> f.getId() == flightId)
-                    .findFirst().orElse(null);
-
-            if (customer == null) {
-                showAlert("Error", "Customer not found!");
-                return;
-            }
-            if (flight == null) {
-                showAlert("Error", "Flight not found!");
-                return;
-            }
-
-            // Create a new Booking object
-            Booking newBooking = new Booking(newBookingId, bookingDate, customerId, flightId);
-
-            // Add new booking to ObservableList
-            bookings.add(newBooking);
-
-            // Refresh the TableView
-            table.setItems(bookings);
-
-            // Show success alert
-            showAlert("Success", "Booking added successfully!");
-
-            // Optionally reset form fields
-            resetCustomerDetails();
-            resetFlightDetails();
-
-        } catch (NumberFormatException e) {
-            showAlert("Error", "Invalid input! Please ensure all fields are filled correctly.");
-        } catch (Exception e) {
-            showAlert("Error", "An unexpected error occurred: " + e.getMessage());
-        }
-    }
 
     @FXML
-    private void updatebooking(MouseEvent event) {
-        // Update logic to be implemented
-    }
-
-    @FXML
-    private void deletebooking(MouseEvent event) {
-        // Delete logic to be implemented
-    }
-
-    @FXML
-    private void back(MouseEvent event) throws IOException {
-        // Back logic to be implemented
-                         Parent root = FXMLLoader.load(getClass().getResource("/View/Planeadd.fxml"));
+    private void addBooking(ActionEvent event) throws IOException {
+                                 Parent root = FXMLLoader.load(getClass().getResource("/View/BookingAdd.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
+
+    @FXML
+    private void deleteBooking(ActionEvent event) {
+                Booking selected = table.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            bookings.remove(selected);
+            table.refresh();
+        }
+        
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+                                 Parent root = FXMLLoader.load(getClass().getResource("/View/Menu.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+private void addButtonToTable() {
+    ticket.setCellFactory(column -> new javafx.scene.control.TableCell<Booking, Void>() {
+        private final Button button = new Button("Imprimer");
+
+        {
+            button.setOnAction(event -> {
+                Booking selected = getTableView().getItems().get(getIndex());
+                if (selected != null) {
+                    // Create an anonymous subclass of Booking
+                    Booking customBooking = new Booking(
+                        selected.getIdbooking(),
+                        selected.getDate(),
+                        selected.getCustomerId(),
+                        selected.getFlightId(),
+                        selected.getSeat(),
+                        selected.getTypeSeat()
+                    ) {
+                        @Override
+                        public void imprimer() {
+                            try {
+                                // Load the Ticket.fxml scene
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Ticket.fxml"));
+                                Parent root = loader.load();
+
+                                // Retrieve customer and flight details
+                                Customer customer = customerList.stream()
+                                        .filter(c -> c.getId() == selected.getCustomerId())
+                                        .findFirst().orElse(null);
+
+                                Flight flight = flightList.stream()
+                                        .filter(f -> f.getId() == selected.getFlightId())
+                                        .findFirst().orElse(null);
+
+                                // Pass data to the TicketController
+                                TicketController ticketController = loader.getController();
+                                ticketController.Display(selected, flight, customer);
+
+                                // Navigate to the Ticket.fxml scene
+                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                Scene scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
+
+                                System.out.println("Button clicked. Booking details printed.");
+                            } catch (IOException ex) {
+                                Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    };
+
+                    // Call the overridden imprimer method
+                    customBooking.imprimer();
+                } else {
+                    System.out.println("No booking selected.");
+                }
+            });
+        }
+
+        @Override
+        protected void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setGraphic(null);
+            } else {
+                setGraphic(button);
+            }
+        }
+    });
+
+    // Add the action column to the TableView if not already added
+    if (!table.getColumns().contains(ticket)) {
+        table.getColumns().add(ticket);
+    }
+}
+
+
 }

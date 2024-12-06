@@ -134,10 +134,6 @@ public class FlightController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void update(ActionEvent event) {
-
-    }
 
     @FXML
     private void delete(ActionEvent event) {

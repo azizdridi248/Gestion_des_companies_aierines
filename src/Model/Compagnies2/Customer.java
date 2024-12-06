@@ -4,6 +4,7 @@
  */
 package Model;
 
+
 import java.time.LocalDate;
 
 /**
@@ -27,5 +28,17 @@ public class Customer extends Person {
 
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
+    }
+    public void message() {
+
+        
+        System.out.println("Customer Details:");
+        System.out.println("ID: " + getId());
+        System.out.println("Name: " + getName());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Telephone: " + getTelephone());
+        System.out.println("CIN: " + getCin());
+        System.out.println("Address: " + getAddress());
+        System.out.println("Passport Number: " + passportNumber);
     }
 }

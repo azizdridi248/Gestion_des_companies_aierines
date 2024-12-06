@@ -85,7 +85,14 @@ public class MenuController implements Initializable {
     }
 
     @FXML
-    private void ScheduleButton(ActionEvent event) {
+    private void ScheduleButton(ActionEvent event) throws IOException {
+                
+                 Parent root = FXMLLoader.load(getClass().getResource("/View/Schedule.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
     }
 
     @FXML

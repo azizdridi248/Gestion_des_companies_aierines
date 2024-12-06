@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="742.0" prefWidth="1024.0" style="-fx-background-color: #f9fafb;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerController">
+<AnchorPane id="AnchorPane" prefHeight="823.0" prefWidth="1187.0" style="-fx-background-color: #f9fafb;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerController">
    <children>
       <!-- Title Section -->
       <Label layoutX="20.0" layoutY="20.0" style="-fx-font-size: 28px; -fx-font-family: 'Arial Bold'; -fx-text-fill: #34495e;" text="Customer Management System" />
@@ -24,19 +24,20 @@
       </HBox>
 
       <!-- Table Section -->
-      <TableView fx:id="table" layoutX="20.0" layoutY="130.0" prefHeight="580.0" prefWidth="980.0" style="-fx-border-color: #bdc3c7; -fx-border-width: 1px; -fx-background-color: white; -fx-padding: 10; -fx-background-radius: 8;">
+      <TableView fx:id="table" layoutX="20.0" layoutY="130.0" prefHeight="580.0" prefWidth="1161.0" style="-fx-border-color: #bdc3c7; -fx-border-width: 1px; -fx-background-color: white; -fx-padding: 10; -fx-background-radius: 8;">
          <columns>
             <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="nom" prefWidth="150.0" text="Name" />
             <TableColumn fx:id="email" prefWidth="200.0" text="Email" />
             <TableColumn fx:id="telephone" prefWidth="150.0" text="Phone" />
             <TableColumn fx:id="birthday" prefWidth="150.0" text="Birthday" />
-            <TableColumn fx:id="cin" prefWidth="150.0" text="CIN" />
-            <TableColumn fx:id="address" prefWidth="250.0" text="Address" />
-            <TableColumn fx:id="idpassport" prefWidth="150.0" text="Passport No." />
+            <TableColumn fx:id="cin" prefWidth="161.60009765625" text="CIN" />
+            <TableColumn fx:id="address" prefWidth="180.0001220703125" text="Address" />
+            <TableColumn fx:id="idpassport" prefWidth="210.39990234375" text="Passport No." />
+            <TableColumn fx:id="actionCol" prefWidth="75.0" text="send" />
          </columns>
       </TableView>
-      <ImageView fx:id="idback" fitHeight="40.0" fitWidth="76.0" layoutX="927.0" layoutY="60.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="idback" fitHeight="40.0" fitWidth="76.0" layoutX="1088.0" layoutY="66.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@left-chevron.png" />
          </image>

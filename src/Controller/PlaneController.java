@@ -43,12 +43,7 @@ private TableColumn<Plane, Integer> id;
 private TableColumn<Plane, String> nom;
 @FXML
 private TableColumn<Plane, Float> distance;
-  @FXML
-private TableColumn<Plane, Integer> Ecoseat;
-    @FXML
-private TableColumn<Plane, Integer> buisnessseat;
-  @FXML
-    private TableColumn<Plane, Integer> firstclassseat;
+
     @FXML
     private TextField searchFld;
 
@@ -57,18 +52,18 @@ private TableColumn<Plane, Integer> buisnessseat;
     @FXML
     private TableColumn<Plane, PlaneEtat> etat;
     public static ObservableList<Plane> planeList = FXCollections.observableArrayList(
-        new Plane(1, "Boeing 747", 15000.0f, 20, 50, 200, PlaneEtat.ENVOL),
-        new Plane(2, "Airbus A320", 12000.0f, 10, 40, 150, PlaneEtat.MAINTENANCE),
-        new Plane(3, "Concorde", 17000.0f, 15, 30, 100, PlaneEtat.ENVOL)
+        new Plane(1, "Boeing 747", 15000.0f, 200, PlaneEtat.ENVOL),
+        new Plane(2, "Airbus A320", 12000.0f, 150, PlaneEtat.MAINTENANCE),
+        new Plane(3, "Concorde", 17000.0f,100, PlaneEtat.ENVOL)
     );
     @FXML
     private Button addBtn;
     @FXML
-    private Button updateBtn;
-    @FXML
     private Button deleteBtn;
     @FXML
     private Button searchBtn;
+    @FXML
+    private TableColumn<Plane, Integer> nbseat;
 
   
   
@@ -79,9 +74,7 @@ private TableColumn<Plane, Integer> buisnessseat;
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         nom.setCellValueFactory(new PropertyValueFactory<>("type"));
         distance.setCellValueFactory(new PropertyValueFactory<>("maxDistance"));
-        Ecoseat.setCellValueFactory(new PropertyValueFactory<>("ecoClassSeatNumber"));
-        buisnessseat.setCellValueFactory(new PropertyValueFactory<>("buisnessSeatNumber"));
-        firstclassseat.setCellValueFactory(new PropertyValueFactory<>("firstClassSeatNumber"));
+        nbseat.setCellValueFactory(new PropertyValueFactory<>("Nb Seat"));
         etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
         // Initialize the ObservableList
@@ -116,9 +109,6 @@ private TableColumn<Plane, Integer> buisnessseat;
         stage.show();
     }
 
-    @FXML
-    private void update(ActionEvent event) {
-    }
 
     @FXML
     private void delete(ActionEvent event) {
@@ -162,5 +152,14 @@ private TableColumn<Plane, Integer> buisnessseat;
         alert.setContentText("Aucun avion ne correspond à la requête : \"" + query + "\"");
         alert.showAndWait();
     }
+    }
+
+    @FXML
+    private void back(MouseEvent event) throws IOException {
+                        Parent root = FXMLLoader.load(getClass().getResource("/View/Menu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
