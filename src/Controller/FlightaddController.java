@@ -4,10 +4,15 @@
  */
 package Controller;
 
+import BD.DB;
 import Model.Flight;
 import Model.FlightState;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,6 +58,10 @@ public class FlightaddController implements Initializable {
     private TextField buissnesFld;
     @FXML
     private TextField stateFld;
+                String query=null;
+    Connection conn=null;
+    PreparedStatement preparedstatement=null;
+    ResultSet rs=null; 
     
     
 
@@ -64,36 +73,38 @@ public class FlightaddController implements Initializable {
         // TODO
     }    
 @FXML
-private void addFlight() {
-    // Check if any fields are empty
-    if (idFld.getText().isEmpty() || nomFld.getText().isEmpty() || sourceFld.getText().isEmpty() ||
-        destinationFld.getText().isEmpty() || ecoFld.getText().isEmpty() || classFld.getText().isEmpty() ||
-        buissnesFld.getText().isEmpty() || stateFld.getText().isEmpty() || dateFld.getValue() == null) {
-        showError("All fields must be filled out.");
-        return;
-    }
+  private void addFlight() {
+        // Check if any fields are empty
+        if (idFld.getText().isEmpty() || nomFld.getText().isEmpty() || sourceFld.getText().isEmpty() ||
+            destinationFld.getText().isEmpty() || ecoFld.getText().isEmpty() || classFld.getText().isEmpty() ||
+            buissnesFld.getText().isEmpty() || stateFld.getText().isEmpty() || dateFld.getValue() == null) {
+            showError("All fields must be filled out.");
+            return;
+        }
 
-    // Try to add the flight
-    try {
-        FlightState flightState = FlightState.valueOf(stateFld.getText().toUpperCase());
-        FlightController.flightList.add(new Flight(
-            Integer.parseInt(idFld.getText()),
-            nomFld.getText(),
-            sourceFld.getText(),
-            destinationFld.getText(),
-            dateFld.getValue(),
-            ecoFld.getText(),
-            classFld.getText(),
-            buissnesFld.getText(),
-            flightState
-        ));
-        clean(); // Clear the fields after adding
-    } catch (NumberFormatException e) {
-        showError("Invalid ID, please enter a valid number.");
-    } catch (IllegalArgumentException e) {
-        showError("Invalid flight state entered.");
+        // Try to add the flight to the database
+        try {
+            FlightState flightState = FlightState.valueOf(stateFld.getText().toUpperCase());
+            insertFlightIntoDatabase(
+                Integer.parseInt(idFld.getText()),
+                nomFld.getText(),
+                sourceFld.getText(),
+                destinationFld.getText(),
+                dateFld.getValue().toString(),
+                Integer.parseInt(ecoFld.getText()),
+                Integer.parseInt(buissnesFld.getText()),
+                Integer.parseInt(classFld.getText()),
+                flightState.name()
+            );
+            clean(); // Clear the fields after adding
+        } catch (NumberFormatException e) {
+            showError("Invalid input. Please enter numeric values for ID, economy seats, business seats, and class seats.");
+        } catch (IllegalArgumentException e) {
+            showError("Invalid flight state entered.");
+        } catch (SQLException e) {
+            showError("Database error: " + e.getMessage());
+        }
     }
-}
 
 private void showError(String message) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -123,6 +134,31 @@ private void showError(String message) {
         buissnesFld.clear();
         stateFld.clear();
         
+    }
+    
+    private void insertFlightIntoDatabase(int id, String name, String source, String destination, String date,
+                                          int ecoSeats, int businessSeats, int classSeats, String state) throws SQLException {
+        conn = DB.connecter();
+        String sql = "INSERT INTO public.flight(id, name, source, destination, date, eco_seat, business_seat, class_seat, state) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+        try (
+                
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, source);
+            preparedStatement.setString(4, destination);
+           preparedStatement.setDate(5, java.sql.Date.valueOf(date)); 
+            preparedStatement.setInt(6, ecoSeats);
+            preparedStatement.setInt(7, businessSeats);
+            preparedStatement.setInt(8, classSeats);
+            preparedStatement.setString(9, state);
+
+            preparedStatement.executeUpdate();
+            
+        }
     }
     
 }

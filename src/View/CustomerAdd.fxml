@@ -83,7 +83,7 @@
       <TextField fx:id="passportcustomer" layoutX="200.0" layoutY="450.0" prefWidth="300.0" promptText="Enter Passport Number" />
 
       <!-- Buttons -->
-      <Button fx:id="idadd" layoutX="150.0" layoutY="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #5F9EA0; -fx-text-fill: white;" text="Add" />
+      <Button fx:id="idadd" layoutX="150.0" layoutY="600.0" mnemonicParsing="false" onAction="#add" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #5F9EA0; -fx-text-fill: white;" text="Add" />
       <ImageView fx:id="IDBACK" fitHeight="40.0" fitWidth="40.0" layoutX="450.0" layoutY="600.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@left-chevron.png" />

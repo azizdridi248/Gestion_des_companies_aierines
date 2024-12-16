@@ -9,6 +9,6 @@ package Model;
  * @author CLUB ACRICAIN
  */
 public enum PlaneEtat {
-    PARKED,MAINTENANCE,ENVOL
+    PARKED,INMAINTENANCE,ENVOL,AVAILABLE,RETIRED,MAINTENANCE
     
 }

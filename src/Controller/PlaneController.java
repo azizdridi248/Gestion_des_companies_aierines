@@ -4,11 +4,18 @@
  */
 package Controller;
 
+import BD.DB;
 import Model.Plane;
 import Model.PlaneEtat;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,9 +59,7 @@ private TableColumn<Plane, Float> distance;
     @FXML
     private TableColumn<Plane, PlaneEtat> etat;
     public static ObservableList<Plane> planeList = FXCollections.observableArrayList(
-        new Plane(1, "Boeing 747", 15000.0f, 200, PlaneEtat.ENVOL),
-        new Plane(2, "Airbus A320", 12000.0f, 150, PlaneEtat.MAINTENANCE),
-        new Plane(3, "Concorde", 17000.0f,100, PlaneEtat.ENVOL)
+      
     );
     @FXML
     private Button addBtn;
@@ -64,6 +69,10 @@ private TableColumn<Plane, Float> distance;
     private Button searchBtn;
     @FXML
     private TableColumn<Plane, Integer> nbseat;
+                String query=null;
+    Connection conn=null;
+    PreparedStatement preparedstatement=null;
+    ResultSet rs=null; 
 
   
   
@@ -71,16 +80,45 @@ private TableColumn<Plane, Float> distance;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize Table Columns
+        conn = DB.connecter();
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         nom.setCellValueFactory(new PropertyValueFactory<>("type"));
         distance.setCellValueFactory(new PropertyValueFactory<>("maxDistance"));
-        nbseat.setCellValueFactory(new PropertyValueFactory<>("Nb Seat"));
+        nbseat.setCellValueFactory(new PropertyValueFactory<>("nbSeats"));
         etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        
+        planeList.clear();
 
-        // Initialize the ObservableList
+     
+    query = "SELECT id, type, max_distance, nb_seats, etat FROM public.plane;"; 
+    
+    try {
+        preparedstatement = conn.prepareStatement(query);
+        rs = preparedstatement.executeQuery();
 
-        table.setItems(planeList);
+        // Iterate over the ResultSet and populate the ObservableList
+        while (rs.next()) {
+            Plane plane = new Plane(
+                rs.getInt("id"),
+                rs.getString("type"),
+                rs.getFloat("max_distance"),
+                rs.getInt("nb_seats"),
+                PlaneEtat.valueOf(rs.getString("etat").toUpperCase()) // assuming PlaneEtat is an enum
+            );
+            planeList.add(plane); 
+            table.setItems(planeList);
+        }
+
+        
+        
+
+    } catch (SQLException ex) {
+        Logger.getLogger(PlaneController.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
+
+    
+
 
  
 

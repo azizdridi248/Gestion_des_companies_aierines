@@ -4,10 +4,14 @@
  */
 package Controller;
 
+import BD.DB;
 import Model.Plane;
 import Model.PlaneEtat;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,6 +49,9 @@ public class PlaneaddController implements Initializable {
     private TextField distanceFld;
     @FXML
     private TextField SeatFld;
+    private Connection conn = null;
+        PreparedStatement preparedstatement=null;
+    ResultSet rs=null; 
 
     /**
      * Initializes the controller class.
@@ -67,7 +74,7 @@ public class PlaneaddController implements Initializable {
 
     // Méthode pour ajouter un avion
     @FXML
-    private void addPlane(ActionEvent event) {
+    private void addPlane(ActionEvent event) throws Exception {
         // Vérification que tous les champs sont remplis
         if (idFld.getText().isEmpty() || nomFld.getText().isEmpty() || distanceFld.getText().isEmpty() ||
             SeatFld.getText().isEmpty()  ||
@@ -84,9 +91,7 @@ public class PlaneaddController implements Initializable {
             int firstClassSeats = Integer.parseInt(SeatFld.getText());
             PlaneEtat etat = PlaneEtat.valueOf(etatFld.getText().toUpperCase());
 
-            // Créer et ajouter l'avion à la liste
-            Plane newPlane = new Plane(id, type, distance, firstClassSeats, etat);
-            PlaneController.planeList.add(newPlane);
+            insertPlaneIntoDatabase(id, type, distance, firstClassSeats, etat.name());
 
             // Nettoyer les champs après ajout
             clearFields();
@@ -125,4 +130,22 @@ public class PlaneaddController implements Initializable {
         SeatFld.clear();
         etatFld.clear();
     }
+    private void insertPlaneIntoDatabase(int id, String type, float distance, int nbSeats, String etat) throws Exception {
+        conn = DB.connecter();
+    String sql = "INSERT INTO public.plane(id, type, max_distance, nb_seats, etat) VALUES (?, ?, ?, ?, ?)";
+
+    try ( // Replace with your connection method
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, id);
+        pstmt.setString(2, type);
+        pstmt.setFloat(3, distance);
+        pstmt.setInt(4, nbSeats);
+        pstmt.setString(5, etat);
+
+        int rowsAffected = pstmt.executeUpdate();
+        System.out.println("Rows inserted: " + rowsAffected); // Debugging log
+    } 
+}
+
 }

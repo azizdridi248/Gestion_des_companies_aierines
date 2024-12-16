@@ -4,6 +4,7 @@
  */
 package gestion_des_companies_aierenes;
 
+import BD.DB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,7 @@ public class Gestion_des_companies_aierenes extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Adjusted path to use an absolute resource path
-        Parent root = FXMLLoader.load(getClass().getResource("/View/Web.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/Menu.fxml"));
 
         // Set up the scene and stage
         Scene scene = new Scene(root);
@@ -24,6 +25,7 @@ public class Gestion_des_companies_aierenes extends Application {
     }
 
     public static void main(String[] args) {
+        DB.connecter();
         launch(args);
     }
 }

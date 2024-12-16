@@ -38,4 +38,9 @@ public class Admin extends Person {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public void message() {
+        System.out.println("Admin message functionality not yet implemented.");
+    }
 }

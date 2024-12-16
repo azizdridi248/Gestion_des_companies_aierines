@@ -1,9 +1,14 @@
 package Controller;
 
+import BD.DB;
 import Model.Booking;
 import Model.Customer;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -61,13 +66,16 @@ public class CustomerController implements Initializable {
     private TableColumn<Customer, String> address;
     @FXML
     private TableColumn<Customer, String> idpassport;
+    
+        String query=null;
+    Connection conn=null;
+    PreparedStatement preparedstatement=null;
+    ResultSet rs=null; 
+    Customer customer=null;
 
 
     // Observable list to hold customer data
-    public static ObservableList<Customer> customerList = FXCollections.observableArrayList(
-        new Customer(1, "Alice", "alice@example.com", "123456789", LocalDate.of(1990, 1, 15), 123456, "123 Main St", "P987654"),
-        new Customer(2, "Bob", "bob@example.com", "987654321", LocalDate.of(1985, 5, 10), 654321, "456 Elm St", "P123456")
-    );
+    public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
     @FXML
     private ImageView idback;
     @FXML
@@ -78,6 +86,7 @@ public class CustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Configure TableView columns
         try{
+            conn = DB.connecter();
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         cin.setCellValueFactory(new PropertyValueFactory<>("cin"));
         nom.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -86,15 +95,42 @@ public class CustomerController implements Initializable {
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
         idpassport.setCellValueFactory(new PropertyValueFactory<>("passportNumber"));
+        
         addButtonToTable();
+        customerList.clear();
+            
+    query = "SELECT * FROM public.customer"; 
+    preparedstatement = conn.prepareStatement(query);
+    rs = preparedstatement.executeQuery();
+
+    // Iterate over the ResultSet and populate the ObservableList
+    while (rs.next()) {
+    customerList.add(new Customer(
+    rs.getInt("id"),
+    rs.getString("name"),
+    rs.getString("email"),
+    rs.getString("telephone"),
+    rs.getDate("birthday").toLocalDate(), // Convert SQL date to LocalDate
+    rs.getInt("cin"),
+    rs.getString("address"),
+    rs.getString("passport_number")
+));
+    table.setItems(customerList);
+    }
+
+    
+    
 
 
         
-        table.setItems(customerList);
+        
         }catch (NullPointerException e) {
         System.err.println("A component is null. Check your FXML file: " + e.getMessage());
-    }
-    }
+    }       catch (SQLException ex) {      
+                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            }      
+    }       
+
 
  
 

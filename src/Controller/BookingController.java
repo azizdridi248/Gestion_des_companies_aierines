@@ -1,10 +1,14 @@
 package Controller;
 
+import BD.DB;
 import static Controller.CustomerController.customerList;
 import static Controller.FlightController.flightList;
+
 import Model.Booking;
 import Model.Customer;
 import Model.Flight;
+import Model.FlightState;
+
 import Model.Seat;
 import java.io.IOException;
 import javafx.collections.FXCollections;
@@ -20,6 +24,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -79,30 +87,72 @@ public class BookingController implements Initializable {
     private Button btnBack;
     @FXML
     private TableColumn<Booking, Void> ticket;
+                    String query=null;
+    Connection conn=null;
+    PreparedStatement preparedstatement=null;
+    ResultSet rs=null; 
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize table columns
+        conn = DB.connecter();
         IdBooking.setCellValueFactory(new PropertyValueFactory<>("idbooking"));
         idcustomer.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         idflight.setCellValueFactory(new PropertyValueFactory<>("flightId"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         seat.setCellValueFactory(new PropertyValueFactory<>("seat"));
         typeseat.setCellValueFactory(new PropertyValueFactory<>("TypeSeat"));
+         
         addButtonToTable();
+        bookings.clear();
+        query="SELECT id_booking, date, customer_id, flight_id, seat, type_seat	FROM public.booking;";
 
+        try {
+            preparedstatement = conn.prepareStatement(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            rs = preparedstatement.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-          table.setItems(bookings);
+        try {
+            // Iterate over the ResultSet and populate the ObservableList
+            while (rs.next()) {
+                // Correct Booking object creation
+                Booking booking = new Booking(
+                        rs.getInt("id_booking"),
+                        rs.getDate("date").toLocalDate(), // Convert SQL date to LocalDate
+                        rs.getInt("customer_id"),
+                        rs.getInt("flight_id"),
+                        rs.getString("seat"),
+                        Seat.valueOf(rs.getString("type_seat").toUpperCase()) // Assuming 'Seat' is an enum
+                );
+                bookings.add(booking);
+                table.setItems(bookings);// Add the Booking object to the list
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         resetFlightDetails();
         resetCustomerDetails();
+        loadCustomers();
+        loadFlights();
+        
 
-        // Add listener to update details when a row is selected in the TableView
-        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                updateDetailsForSelectedBooking(newValue);
-            }
-        });
+           table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    if (newValue != null) {
+        System.out.println("Selected Booking: " + newValue);
+        updateDetailsForSelectedBooking(newValue);
+    } else {
+        System.out.println("No booking selected.");
+    }
+});
+
     }
 
 
@@ -284,6 +334,53 @@ private void addButtonToTable() {
         table.getColumns().add(ticket);
     }
 }
+private void loadCustomers() {
+    try {
+        String customerQuery = "SELECT * FROM public.customer;";
+        PreparedStatement customerStatement = conn.prepareStatement(customerQuery);
+        ResultSet customerRs = customerStatement.executeQuery();
+        while (customerRs.next()) {
+            Customer customer = new Customer(
+                customerRs.getInt("id"),
+                customerRs.getString("name"),
+                customerRs.getString("email"),
+                customerRs.getString("telephone"),
+                customerRs.getDate("birthday").toLocalDate(),
+                customerRs.getInt("cin"),
+                customerRs.getString("address"),
+                customerRs.getString("passport_number")
+            );
+            customerList.add(customer);
+        }
+    } catch (SQLException e) {
+        Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, e);
+    }
+}
+
+private void loadFlights() {
+    try {
+        String flightQuery = "SELECT * FROM public.flight;";
+        PreparedStatement flightStatement = conn.prepareStatement(flightQuery);
+        ResultSet flightRs = flightStatement.executeQuery();
+        while (flightRs.next()) {
+            Flight flight = new Flight(
+                flightRs.getInt("id"),
+                flightRs.getString("name"),
+                flightRs.getString("source"),
+                flightRs.getString("destination"),
+                flightRs.getDate("date").toLocalDate(),
+                flightRs.getString("eco_seat"),
+                flightRs.getString("business_seat"),
+                flightRs.getString("class_seat"),
+                FlightState.valueOf(flightRs.getString("state").toUpperCase())
+            );
+            flightList.add(flight);
+        }
+    } catch (SQLException e) {
+        Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, e);
+    }
+}
+
 
 
 }

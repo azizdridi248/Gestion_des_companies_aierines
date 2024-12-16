@@ -1,5 +1,6 @@
 package Controller;
 
+import BD.DB;
 import Model.Booking;
 import Model.Customer;
 import Model.Flight;
@@ -7,6 +8,9 @@ import Model.Seat;
 import Model.SeatN;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -24,7 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class BookingAddController implements Initializable,SeatN {
+public class BookingAddController implements Initializable, SeatN {
 
     @FXML
     private Button idadd;
@@ -54,13 +58,17 @@ public class BookingAddController implements Initializable,SeatN {
     private DatePicker iddate;
     @FXML
     private TextField idseat;
-    
-    SeatN checkSeatAvailability = (seatInput,flightId) -> 
-BookingController.bookings.stream()
+
+    private Connection conn = null;
+    private PreparedStatement preparedstatement = null;
+    private ResultSet rs = null; 
+    private Customer customer = null;
+
+    SeatN checkSeatAvailability = (seatInput, flightId) -> 
+        BookingController.bookings.stream()
             .noneMatch(booking -> 
                 booking.getSeat().equalsIgnoreCase(seatInput) && booking.getFlightId() == flightId
             );
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,8 +97,6 @@ BookingController.bookings.stream()
         idflight.clear();
         iddate.setValue(null);
         idseat.clear();
-
-        
     }
 
     private void showAlert(String title, String content) {
@@ -102,25 +108,25 @@ BookingController.bookings.stream()
 
     @FXML
     private void add(ActionEvent event) {
-        
-            // Validate inputs
-            if (idcustomer.getText().isEmpty() || nomcustomer.getText().isEmpty() || emailcustomer.getText().isEmpty()) {
-                showAlert("Error", "Please fill in all mandatory fields!");
-                return;
-            }
-
-            LocalDate customerBirthday = birthdaycustomer.getValue();
-            if (customerBirthday == null) {
-                showAlert("Error", "Please select a valid birthday!");
-                return;
-            }
-               try {
-                    int idFlight = parseIntegerField(idflight, "Flight ID");
-        String flightSeat = seat.getText();
-        if (!countnbseatrestant(flightSeat, idFlight)) {
-            showAlert("Error", "Seat " + flightSeat + " is already taken for Flight ID " + idFlight + "!");
+        // Validate inputs
+        if (idcustomer.getText().isEmpty() || nomcustomer.getText().isEmpty() || emailcustomer.getText().isEmpty()) {
+            showAlert("Error", "Please fill in all mandatory fields!");
             return;
         }
+
+        LocalDate customerBirthday = birthdaycustomer.getValue();
+        if (customerBirthday == null) {
+            showAlert("Error", "Please select a valid birthday!");
+            return;
+        }
+
+        try {
+            int idFlight = parseIntegerField(idflight, "Flight ID");
+            String flightSeat = seat.getText();
+            if (!countnbseatrestant(flightSeat, idFlight)) {
+                showAlert("Error", "Seat " + flightSeat + " is already taken for Flight ID " + idFlight + "!");
+                return;
+            }
 
             LocalDate bookingDate = iddate.getValue();
             if (bookingDate == null) {
@@ -128,29 +134,26 @@ BookingController.bookings.stream()
                 return;
             }
 
-
             int customerId = parseIntegerField(idcustomer, "Customer ID");
             int customerCin = parseIntegerField(cincustomer, "CIN");
-           
-                  
             Seat etat = Seat.valueOf(idseat.getText().toUpperCase());
 
-            if (customerId == -1 || customerCin == -1 || idFlight == -1 ) {
+            if (customerId == -1 || customerCin == -1 || idFlight == -1) {
                 return; // Parsing error messages are already shown
             }
 
-
-                        Customer newCustomer = new Customer(
-                                customerId,
-                                nomcustomer.getText(),
-                                emailcustomer.getText().trim(),
-                                telephonecustomer.getText(),
-                                customerBirthday,
-                                customerCin,
-                                addresscustomer.getText(),
-                                passportcustomer.getText()
-                        );
-                        CustomerController.customerList.add(newCustomer);
+            // Create and add new customer
+            Customer newCustomer = new Customer(
+                customerId,
+                nomcustomer.getText(),
+                emailcustomer.getText().trim(),
+                telephonecustomer.getText(),
+                customerBirthday,
+                customerCin,
+                addresscustomer.getText(),
+                passportcustomer.getText()
+            );
+            CustomerController.customerList.add(newCustomer);
 
             // Validate flight existence
             Flight flight = FlightController.flightList.stream()
@@ -162,14 +165,23 @@ BookingController.bookings.stream()
                 showAlert("Error", "Flight not found!");
                 return;
             }
+            System.out.println("Entered Flight ID: " + idFlight);
 
             // Create and add new booking
-            int newBookingId = BookingController.bookings.size() + 1;
-            Booking newBooking = new Booking(newBookingId, bookingDate, customerId, idFlight,flightSeat,etat);
+            int newBookingId = BookingController.bookings.size() + 4;
+            Booking newBooking = new Booking(newBookingId, bookingDate, customerId, idFlight, flightSeat, etat);
             BookingController.bookings.add(newBooking);
+                        insertIntoDatabase("INSERT INTO public.customer(id, name, email, telephone, birthday, cin, address, passport_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+                new Object[] {customerId, newCustomer.getName(), newCustomer.getEmail(), newCustomer.getTelephone(), java.sql.Date.valueOf(newCustomer.getBirthday()), customerCin, newCustomer.getAddress(), newCustomer.getPassportNumber()});
+
+            // Insert into Database
+            insertIntoDatabase("INSERT INTO public.booking(id_booking, date, customer_id, flight_id, seat, type_seat) VALUES (?, ?, ?, ?, ?, ?)", 
+                new Object[] {newBooking.getIdbooking(), java.sql.Date.valueOf(bookingDate), customerId, idFlight, flightSeat, etat.name()});
+
 
             // Success message and reset form
             showAlert("Success", "Booking added successfully!");
+            
             resetFormFields();
 
         } catch (Exception e) {
@@ -188,11 +200,20 @@ BookingController.bookings.stream()
     }
 
     @Override
-    public boolean countnbseatrestant(String seat,int flightId) {
-                return checkSeatAvailability.countnbseatrestant(seat, flightId);
-
-       
+    public boolean countnbseatrestant(String seat, int flightId) {
+        return checkSeatAvailability.countnbseatrestant(seat, flightId);
     }
-    
 
+    private void insertIntoDatabase(String sql, Object[] parameters) {
+        conn = DB.connecter();
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            for (int i = 0; i < parameters.length; i++) {
+                pstmt.setObject(i + 1, parameters[i]);
+            }
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            showAlert("Error", "Database insertion failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

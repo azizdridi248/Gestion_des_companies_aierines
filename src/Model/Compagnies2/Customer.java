@@ -29,6 +29,8 @@ public class Customer extends Person {
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
+    
+    @Override
     public void message() {
 
         

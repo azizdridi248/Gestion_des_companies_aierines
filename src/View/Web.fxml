@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WebController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="Controller.WebController">
     <children>
         <WebView fx:id="webView" layoutX="10" layoutY="10">
             <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
@@ -18,9 +18,10 @@
             <AnchorPane.leftAnchor>10.0</AnchorPane.leftAnchor>
             <AnchorPane.rightAnchor>100.0</AnchorPane.rightAnchor>
         </TextField>
-        <Button fx:id="LoadButton" layoutX="420" layoutY="420" text="Load" onAction="#loadPage">
-            <AnchorPane.bottomAnchor>10.0</AnchorPane.bottomAnchor>
-            <AnchorPane.rightAnchor>10.0</AnchorPane.rightAnchor>
+        <Button fx:id="LoadButton" layoutX="700.0" layoutY="612.0" onAction="#loadPage" text="Load">
+            <AnchorPane.bottomAnchor>12.799999999999955</AnchorPane.bottomAnchor>
+            <AnchorPane.rightAnchor>57.60000000000002</AnchorPane.rightAnchor>
         </Button>
+      <Button fx:id="LoadButton1" layoutX="757.0" layoutY="612.0" onAction="#back" text="back" />
     </children>
 </AnchorPane>

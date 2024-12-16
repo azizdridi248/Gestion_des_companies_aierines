@@ -4,13 +4,22 @@
  */
 package Controller;
 
+import BD.DB;
+import static Controller.CustomerController.customerList;
+import Model.Customer;
 import Model.Flight;
 import Model.FlightState;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,19 +78,15 @@ public class FlightController implements Initializable {
     private Button iddelete;
     @FXML
     private Button idback;
+            String query=null;
+    Connection conn=null;
+    PreparedStatement preparedstatement=null;
+    ResultSet rs=null; 
+    
+
 
     // Observable list for table data
-    public static ObservableList<Flight> flightList = FXCollections.observableArrayList(new Flight(
-        1, 
-        "Flight A", 
-        "New York", 
-        "Los Angeles", 
-        LocalDate.of(1990, 5, 19), 
-        "50", 
-        "20", 
-        "30", 
-        FlightState.SCHEDULED),new Flight(2, "Flight B", "Paris", "London",
-                LocalDate.of(1990, 5, 19), "40", "15", "25", FlightState.DELAYED));
+    public static ObservableList<Flight> flightList = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -89,6 +94,14 @@ public class FlightController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize Table Columns
+        loaddataflight();
+ 
+     
+
+    }
+    public void loaddataflight(){
+    
+           conn = DB.connecter();
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
         NOM.setCellValueFactory(new PropertyValueFactory<>("name"));
         SOURCE.setCellValueFactory(new PropertyValueFactory<>("source"));
@@ -98,8 +111,49 @@ public class FlightController implements Initializable {
         CLASSSEAT.setCellValueFactory(new PropertyValueFactory<>("classSeat"));
         BUISSNESSCLASS.setCellValueFactory(new PropertyValueFactory<>("businessSeat"));
         STATE.setCellValueFactory(new PropertyValueFactory<>("state"));
-        TABLE.setItems(flightList);
+        flightList.clear();
+            query = "SELECT id, name, source, destination, date, eco_seat, business_seat, class_seat, state" +
+"	FROM public.flight;"; 
+      try {
+          preparedstatement = conn.prepareStatement(query);
+      } catch (SQLException ex) {
+          Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      try {
+          rs = preparedstatement.executeQuery();
+      } catch (SQLException ex) {
+          Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+      }
 
+      try {
+          // Iterate over the ResultSet and populate the ObservableList
+          while (rs.next()) {
+              Flight flight;
+              try {
+                  flight = new Flight(
+                          rs.getInt("id"),
+                          rs.getString("name"),
+                          rs.getString("source"),
+                          rs.getString("destination"),
+                          rs.getDate("date").toLocalDate(), // Convert SQL date to LocalDate
+                          rs.getString("eco_seat"),
+                          rs.getString("business_seat"),
+                          rs.getString("class_seat"),
+                          FlightState.valueOf(rs.getString("state").toUpperCase()) // Assuming FlightState is an enum
+                  );
+              flightList.add(flight); 
+              TABLE.setItems(flightList);
+              
+              } catch (SQLException ex) {
+                      Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+              
+              // Add the flight to the list
+          } } catch (SQLException ex) {
+          Logger.getLogger(FlightController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    
+        
     }
 
 
